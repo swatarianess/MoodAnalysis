@@ -1,19 +1,21 @@
 package utils;
 
+import java.util.Observable;
+
 /**
  * Created by Stephen Adu on 12/10/2016.
  */
-public class threadData {
+public class ThreadData extends Observable {
 
     private String[] strings;
     private int moodValue;
     private String url;
 
-    public threadData(){
+    public ThreadData(){
        this.url = "index.html";
     }
 
-    public threadData(String url){
+    public ThreadData(String url){
         this.url = url;
     }
 

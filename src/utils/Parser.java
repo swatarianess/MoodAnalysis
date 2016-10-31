@@ -16,39 +16,11 @@ import java.util.Observable;
 /**
  * Created by Steve on 12/10/2016.
  */
-public class parser extends Observable {
+public class Parser implements Runnable {
 
     private static ArrayList<String> rawStrings;
 
-    public parser(){
-
-    }
-
-    public static void main(String[] args){
-        try {
-
-            URL url = new URL("https://en.wikipedia.org/wiki/ESL_One_Cologne_2015");
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-
-            String line;
-            while ((line = in.readLine()) != null) {
-                System.out.println(extractText(line));
-                rawStrings.add(extractText(line));
-            }
-            in.close();
-
-        }
-        catch (MalformedURLException e) {
-            System.out.println("Malformed URL: " + e.getMessage());
-        }
-        catch (IOException e) {
-            System.out.println("I/O Error: " + e.getMessage());
-        }
-
-    }
-
-    private static String extractText(String html) throws IOException {
+     private static String extractText(String html) throws IOException {
         final ArrayList<String> list = new ArrayList<>();
 
         ParserDelegator parserDelegator = new ParserDelegator();
@@ -75,6 +47,30 @@ public class parser extends Observable {
 
     public static ArrayList<String> getRawStrings() {
         return rawStrings;
+        //TODO find how to add strings into variable to compare to
     }
 
+    @Override
+    public void run() {
+        try {
+
+            URL url = new URL("https://en.wikipedia.org/wiki/ESL_One_Cologne_2015");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            String line;
+            while ((line = in.readLine()) != null) {
+                System.out.println(extractText(line));
+//                rawStrings.add(extractText(line));
+            }
+            in.close();
+
+        }
+        catch (MalformedURLException e) {
+            System.out.println("Malformed URL: " + e.getMessage());
+        }
+        catch (IOException e) {
+            System.out.println("I/O Error: " + e.getMessage());
+        }
+    }
 }

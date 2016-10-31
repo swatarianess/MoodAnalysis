@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane id="AnchorPane" fx:id="newThreadAnchorPane" accessibleText="New Thread" prefHeight="160.0" prefWidth="420.0"
+            xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="UI.NewThreadController">
+
+   <Label layoutX="28.0" layoutY="40.0" text="Website to add thread:"/>
+   <Label layoutX="28.0" layoutY="87.0" text="Thread to add:"/>
+
+   <TextField fx:id="addThreadTextField" layoutX="216.0" layoutY="83.0" prefHeight="25.0" prefWidth="180.0"
+              promptText="Thread"/>
+
+   <ComboBox fx:id="websitesComboBox" layoutX="216.0" layoutY="36.0" prefWidth="150.0" promptText="Website"/>
+   <Button fx:id="cancelButton" layoutX="216.0" layoutY="118.0" mnemonicParsing="false" text="Cancel"/>
+   <Button fx:id="addButton" layoutX="306.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleAddThread"
+           text="Add"/>
+</BorderPane>
