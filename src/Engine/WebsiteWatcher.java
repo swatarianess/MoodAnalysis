@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by Stephen Adu on 02/11/2016.
+ * Created by Steve on 02/11/2016.
  */
 public class WebsiteWatcher implements Runnable {
 

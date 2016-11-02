@@ -9,7 +9,7 @@ class WebsiteData{
 
     private String url;
     private int moodValue;
-    private ArrayList<String> threadDatas;
+    private ArrayList<String> threadDatas = new ArrayList<>();
 
     public WebsiteData(String website){
         setUrl(website);
@@ -17,7 +17,7 @@ class WebsiteData{
 
     public WebsiteData()
     {
-        setUrl("https://en.wikipedia.org/");
+        setUrl("https://en.wikipedia.org");
     }
 
 
@@ -32,10 +32,10 @@ class WebsiteData{
     }
 
     public int getMoodValue() {
-        return 0;
+        return this.moodValue;
     }
 
-    private void setMoodValue(int moodValue) {
+    public void setMoodValue(int moodValue) {
         this.moodValue = moodValue;
     }
 
@@ -43,15 +43,8 @@ class WebsiteData{
         return threadDatas;
     }
 
-    public void setThreadDatas(ArrayList<String> ThreadDatas) {
-        this.threadDatas = ThreadDatas;
+    public boolean addThreadData(String td){
+       return threadDatas.add(td);
     }
 
-    public void addThreadData(String td){
-        threadDatas.add(td);
-    }
-
-    private void generateMoodValue(){
-
-    }
 }

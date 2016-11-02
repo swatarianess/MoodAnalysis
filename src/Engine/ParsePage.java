@@ -1,7 +1,5 @@
 package Engine;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
-
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLEditorKit;
