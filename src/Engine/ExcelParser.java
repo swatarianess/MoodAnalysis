@@ -1,4 +1,4 @@
-package utils;
+package Engine;
 
 import java.io.*;
 import java.util.HashMap;
@@ -8,19 +8,35 @@ import java.util.regex.Pattern;
 /**
  * Created by Steve on 20/10/2016.
  */
-public class ExcelReader{
 
-    private static InputStream in = ExcelReader.class.getResourceAsStream("WordValues.csv");
+class ExcelParser implements Runnable {
 
-    public ExcelReader(){
+    private static InputStream in = ExcelParser.class.getResourceAsStream("/values/WordValues.csv");
 
+    private static HashMap<String, Integer> moodValueMap;
+
+    ExcelParser(){
+        moodValueMap = new HashMap<>();
     }
 
-    public static void main(String[] args){
+
+    HashMap<String, Integer> getMoodValueMap() {
+        return moodValueMap;
+    }
+
+    public static void setMoodValueMap(HashMap<String, Integer> moodValueMap) {
+        ExcelParser.moodValueMap = moodValueMap;
+    }
+
+    private static void addMoodValueItem(String word, Integer value){
+        moodValueMap.put(word,value);
+    }
+
+    @Override
+    public void run() {
         BufferedReader buffer = null;
         final String pattern = "(\\w.*)[?;](.*)";
         Pattern r = Pattern.compile(pattern);
-
         try {
             String line;
             buffer = new BufferedReader(new InputStreamReader(in));
@@ -28,11 +44,8 @@ public class ExcelReader{
             while ((line = buffer.readLine()) != null){
                 Matcher m = r.matcher(line);
                 if(m.find()) {
-                    System.out.printf("Word: %s | Value: %s \n", m.group(1), m.group(2));
-
-                    HashMap<String,Integer> result = new HashMap<>();
-                    result.put(m.group(1), Integer.parseInt(m.group(2)));
-                    System.out.println(result);
+//                    System.out.printf("Word: %s | Value: %s \n", m.group(1), m.group(2));
+                    addMoodValueItem(m.group(1), Integer.parseInt(m.group(2)));
                 }
             }
 
@@ -45,8 +58,8 @@ public class ExcelReader{
             } catch (IOException e){
                 e.printStackTrace();
             }
-
         }
     }
+
 
 }

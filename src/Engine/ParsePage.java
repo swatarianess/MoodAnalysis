@@ -1,4 +1,6 @@
-package utils;
+package Engine;
+
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.html.HTML;
@@ -11,14 +13,16 @@ import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Observable;
+import java.util.Collections;
 
 /**
- * Created by Steve on 12/10/2016.
+ * Created by bloop on 12/10/2016.
  */
-public class Parser implements Runnable {
+class ParsePage implements Runnable{
 
-    private static ArrayList<String> rawStrings;
+    private ArrayList<String> rawStrings = new ArrayList<>();
+    private String website;
+    private String thread;
 
      private static String extractText(String html) throws IOException {
         final ArrayList<String> list = new ArrayList<>();
@@ -45,23 +49,28 @@ public class Parser implements Runnable {
         return text;
     }
 
-    public static ArrayList<String> getRawStrings() {
+    ParsePage(String website, String thread){
+        this.website = website;
+        this.thread = thread;
+    }
+
+    ArrayList<String> getRawStrings(){
         return rawStrings;
-        //TODO find how to add strings into variable to compare to
     }
 
     @Override
     public void run() {
         try {
 
-            URL url = new URL("https://en.wikipedia.org/wiki/ESL_One_Cologne_2015");
+            URL url = new URL(website+thread);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 
             String line;
             while ((line = in.readLine()) != null) {
-                System.out.println(extractText(line));
-//                rawStrings.add(extractText(line));
+                String s = extractText(line);
+//                System.out.println(s);
+                fillWithWords(s.toUpperCase());
             }
             in.close();
 
@@ -73,4 +82,14 @@ public class Parser implements Runnable {
             System.out.println("I/O Error: " + e.getMessage());
         }
     }
+
+    public void fillWithWords(String s){
+        if(!s.isEmpty()){
+            s = s.replaceAll("[\\-\\+\\.\\^:,]","");
+            String[] split = s.split(" ");
+            Collections.addAll(rawStrings, split);
+        }
+    }
+
+
 }

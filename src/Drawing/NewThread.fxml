@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane id="AnchorPane" fx:id="newThreadAnchorPane" accessibleText="New Thread" prefHeight="160.0" prefWidth="420.0"
             xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="UI.NewThreadController">
+            fx:controller="Drawing.NewThreadController">
 
    <Label layoutX="28.0" layoutY="40.0" text="Website to add thread:"/>
    <Label layoutX="28.0" layoutY="87.0" text="Thread to add:"/>

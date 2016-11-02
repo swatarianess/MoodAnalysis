@@ -1,4 +1,4 @@
-package UI;
+package Drawing;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
