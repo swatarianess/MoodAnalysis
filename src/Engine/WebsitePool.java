@@ -57,6 +57,8 @@ public class WebsitePool implements Runnable {
             for(Map.Entry<String,Integer> entry : wd1.getThreadsArrayList().entrySet()){
                 analyser.setCurrentThread(entry.getKey());
                 executorPool.execute(analyser);
+                System.out.println(entry.getKey());
+
             }
 
             //Shutdown the pool
@@ -70,5 +72,11 @@ public class WebsitePool implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args){
+        WebsitePool wp = new WebsitePool();
+        wp.run();
+
     }
 }

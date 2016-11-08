@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane id="AnchorPane" prefHeight="500.0" prefWidth="750.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Drawing.Controller.Threadlist">
+<BorderPane id="AnchorPane" prefHeight="500.0" prefWidth="750.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Drawing.Controller.ThreadlistController">
     <top>
         <TableView fx:id="threadListTable" prefHeight="400.0" prefWidth="750.0" scaleShape="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>

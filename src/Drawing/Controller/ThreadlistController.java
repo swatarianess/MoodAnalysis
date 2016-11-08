@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * @author Steve
  */
-public class Threadlist implements Initializable {
+public class ThreadlistController implements Initializable {
 
     @FXML
     public TableColumn nameColumn;
