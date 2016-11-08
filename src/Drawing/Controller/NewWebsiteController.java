@@ -1,4 +1,4 @@
-package Drawing;
+package Drawing.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 /**
  * Created on 17/10/2016.
  */
-public class NewWebsiteController implements Initializable {
+public class NewWebsiteController {
 
 
     @FXML
@@ -28,14 +28,12 @@ public class NewWebsiteController implements Initializable {
 
     public void addHandler(ActionEvent actionEvent) {
         System.out.println("Added website.");
+        System.out.println(urlField.textProperty().getValue());
     }
 
     public void cancelHandler(ActionEvent actionEvent) {
         System.out.println("Canceled adding website.");
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
 
     }
+
 }

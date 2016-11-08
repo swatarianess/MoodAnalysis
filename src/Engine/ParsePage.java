@@ -14,15 +14,52 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by bloop on 12/10/2016.
+ * @author Steve
  */
-class ParsePage implements Runnable{
+public class ParsePage implements Runnable{
 
     private ArrayList<String> rawStrings = new ArrayList<>();
-    private String website;
-    private String thread;
 
-     private static String extractText(String html) throws IOException {
+    private String website;
+    private String threadName;
+
+    ParsePage(String website, String threadName){
+        this.website = website;
+        this.threadName = threadName;
+        System.out.println("Creating " + threadName);
+    }
+
+
+    @Override
+    public void run() {
+        System.out.println("Running " + threadName);
+        try {
+            URL url = new URL(website + threadName);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                String s = extractText(line);
+                fillWithWords(s.toUpperCase());
+            }
+            in.close();
+        } catch (MalformedURLException e) {
+            System.out.println("Malformed URL: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("I/O Error: " + e.getMessage());
+        }
+    }
+
+
+    private void fillWithWords(String s){
+        if(!s.isEmpty()){
+            s = s.replaceAll("[\\-+\\.\\^:,]","");
+            String[] split = s.split(" ");
+            Collections.addAll(rawStrings, split);
+        }
+    }
+
+    private String extractText(String html) throws IOException {
         final ArrayList<String> list = new ArrayList<>();
 
         ParserDelegator parserDelegator = new ParserDelegator();
@@ -47,46 +84,8 @@ class ParsePage implements Runnable{
         return text;
     }
 
-    ParsePage(String website, String thread){
-        this.website = website;
-        this.thread = thread;
-    }
-
-    ArrayList<String> getRawStrings(){
+    public ArrayList<String> getRawStrings(){
         return rawStrings;
-    }
-
-    @Override
-    public void run() {
-        try {
-
-            URL url = new URL(website+thread);
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-
-            String line;
-            while ((line = in.readLine()) != null) {
-                String s = extractText(line);
-//                System.out.println(s);
-                fillWithWords(s.toUpperCase());
-            }
-            in.close();
-
-        }
-        catch (MalformedURLException e) {
-            System.out.println("Malformed URL: " + e.getMessage());
-        }
-        catch (IOException e) {
-            System.out.println("I/O Error: " + e.getMessage());
-        }
-    }
-
-    public void fillWithWords(String s){
-        if(!s.isEmpty()){
-            s = s.replaceAll("[\\-\\+\\.\\^:,]","");
-            String[] split = s.split(" ");
-            Collections.addAll(rawStrings, split);
-        }
     }
 
 

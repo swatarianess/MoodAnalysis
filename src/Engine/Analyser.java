@@ -2,53 +2,43 @@ package Engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Executor;
 
 /**
- * Created by Steve on 02/11/2016.
+ *  Handles webData and the various threads
+ *
+ * @author Steve
  */
 public class Analyser implements Runnable {
 
-    private static HashMap<String,Integer> wordMap = new HashMap<>();
-    private static ArrayList<WebsiteData> websiteDataArrayList = new ArrayList<>();
+    private static HashMap<String,Integer> wordMap;
+    private WebsiteData websiteData;
+    private static String CurrentThread;
 
-      public static HashMap<String, Integer> getWordMap() {
-        return wordMap;
+
+    Analyser(WebsiteData wd){
+        websiteData = wd;
     }
 
     @Override
     public void run() {
+        //Create Executor
+        Executor executor = Runnable::run;
 
-    }
+        //CreateParse
+        ParsePage page = new ParsePage(getWebsiteData().getUrl(), CurrentThread);
+        executor.execute(page);
+        System.out.println("[CT: " + getCurrentThread() + "] -> " + calculateMoodValue(page.getRawStrings()));
 
-    public static void main(String[] args){
-        //Parse excel document
-        ExcelParser ep = new ExcelParser();
-        ep.run();
-
-        WebsiteData wd1 = new WebsiteData();
-        wd1.addThreadData("/wiki/Special:Random");
-        websiteDataArrayList.add(wd1);
-
-        //Map words with values
-        wordMap = ep.getMoodValueMap();
-
-        //Generate Value for
-        ParsePage parsePage = new ParsePage(websiteDataArrayList.get(0).getUrl(),websiteDataArrayList.get(0).getThreadDatas().get(0));
-        parsePage.run();
-
-        //
-        int result = calculateMoodValue(parsePage.getRawStrings());
-        websiteDataArrayList.get(0).setMoodValue(result);
-        System.out.printf("Moodvalue of %s%s is %s",websiteDataArrayList.get(0).getUrl(),websiteDataArrayList.get(0).getThreadDatas().get(0),websiteDataArrayList.get(0).getMoodValue() );
     }
 
     /**
      * @param wordsToCompare Array of words to compare against HashMap of words with values
      * @return Mood value of thread
      */
-    private static int calculateMoodValue(ArrayList<String> wordsToCompare){
+    private int calculateMoodValue(ArrayList<String> wordsToCompare){
         int result = 0;
-        if(!wordMap.isEmpty()) {
+        if(!getWordMap().isEmpty()) {
             try {
                 String currentWord;
 
@@ -68,4 +58,31 @@ public class Analyser implements Runnable {
         return 0;
     }
 
+
+    public int getWebsiteThreadSize(){
+        return websiteData.getThreadsArrayList().size();
+    }
+
+    public WebsiteData getWebsiteData() {
+        return websiteData;
+    }
+
+    public String getCurrentThread(){
+        return CurrentThread;
+    }
+
+    public void setCurrentThread(String thread){CurrentThread = thread;}
+
+    public static void setWordMap(HashMap<String, Integer> wordMap) {
+        Analyser.wordMap = wordMap;
+    }
+
+    private static HashMap<String, Integer> getWordMap() {
+        return wordMap;
+    }
+
+    @Override
+    public String toString() {
+        return "[Analyser " + getCurrentThread() + "]";
+    }
 }

@@ -1,64 +1,57 @@
 package Drawing;
 
+import Drawing.Controller.MainLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
 
 public class Main extends Application {
 
-    static final String PACKAGE = "scenes/";
+    public static final String PACKAGE = "Views/";
 
-    private static final String MAIN_SCREEN_FXML = "MainLayout.fxml";
+    //Constants
+    public static final String MAIN_SCREEN_FXML = "MainLayout.fxml";
 
-    public static final String GRAPH_SCREEN = "Graph";
-    static final String GRAPHS_SCREEN_FXML = "graph.fxml";
+    public static final String GRAPHS_SCREEN_FXML = "graph.fxml";
 
-    static final String NEW_THREAD_SCREEN = "New_Thread_Screen";
-    static final String NEW_THREAD_SCREEN_FXML = "NewThread.fxml";
+    public static final String SETTINGS_FXML = "Settings.fxml";
 
-    static final String NEW_WEBSITE_SCREEN = "New_Website";
-    static final String NEW_WEBSITE_SCREEN_FXML = "NewWebsite.fxml";
+    public static final String NEW_THREAD_SCREEN_FXML = "NewThread.fxml";
 
-    static final String EMPTY_FXML = "empty.fxml";
+    public static final String NEW_WEBSITE_SCREEN_FXML = "NewWebsite.fxml";
 
-    private static BorderPane root = new BorderPane();
+    public static final String THREADS_OF_INTEREST = "ThreadsOfInterest.fxml";
+    public static final String THREAD_LIST = "ThreadList.fxml";
 
-    public static BorderPane getRoot(){
-        return root;
-    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        URL menuBarUrl = getClass().getResource(MAIN_SCREEN_FXML);
-        URL emptyPane = getClass().getResource(EMPTY_FXML);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(PACKAGE+MAIN_SCREEN_FXML));
+        BorderPane rootGroup = fxmlLoader.load();
 
-        MenuBar menuBar = FXMLLoader.load(menuBarUrl);
-        AnchorPane empty = FXMLLoader.load(emptyPane);
+        final MainLayoutController controller = fxmlLoader.getController();
+        controller.setStage(primaryStage);
 
-        root.setTop(menuBar);
-        root.setCenter(empty);
-
-        Scene scene = new Scene(root, 600, 400);
-        System.out.println(" 'Root' Children size: " + root.getChildren().size());
-        System.out.println(" 'Root' Array Contains: " + Arrays.deepToString(root.getChildren().toArray()));
-
+        Scene scene = new Scene(rootGroup, 500,500);
+        scene.setFill(Color.TRANSPARENT);
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Mood Analyser");
+        primaryStage.setOnCloseRequest(we -> System.out.println("Stage is closing..."));
+        primaryStage.setResizable(false);
         primaryStage.show();
+
     }
+
 
     public static void main(String[] args) {
         launch(args);
     }
+
 
 }

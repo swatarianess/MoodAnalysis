@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Hyperlink?>
+<AnchorPane id="AnchorPane" prefHeight="530.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.6555183946488294" layoutX="-113.0" prefHeight="530.0" prefWidth="924.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <LineChart layoutX="8.0" layoutY="27.0" prefHeight="528.0" prefWidth="601.0" title="Threads of Interest" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="162.0">
+               <children>
+                  <HBox layoutX="14.0" layoutY="8.0" prefHeight="528.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox prefHeight="528.0" prefWidth="150.0" spacing="10">
+                           <children>
+                              <Label text="Website URL" />
+                              <Label text="Thread URL" />
+                              <Label text="Current" />
+                              <Label text="Minimum" />
+                              <Label text="Maximum" />
+                              <Label text="Average" />
+                              <Label text="Note" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding></VBox>
+                        <VBox prefHeight="200.0" prefWidth="150.0" spacing="10.0">
+                           <children>
+                              <Hyperlink text="website" />
+                              <Hyperlink text="website/threadName" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                           </children>
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding></VBox>
+                     </children>
+                  </HBox>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

@@ -1,4 +1,4 @@
-package Drawing;
+package Drawing.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

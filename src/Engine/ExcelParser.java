@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Steve on 20/10/2016.
+ * @author Steve
  */
 
 class ExcelParser implements Runnable {
@@ -19,13 +19,8 @@ class ExcelParser implements Runnable {
         moodValueMap = new HashMap<>();
     }
 
-
     HashMap<String, Integer> getMoodValueMap() {
         return moodValueMap;
-    }
-
-    public static void setMoodValueMap(HashMap<String, Integer> moodValueMap) {
-        ExcelParser.moodValueMap = moodValueMap;
     }
 
     private static void addMoodValueItem(String word, Integer value){
@@ -44,7 +39,6 @@ class ExcelParser implements Runnable {
             while ((line = buffer.readLine()) != null){
                 Matcher m = r.matcher(line);
                 if(m.find()) {
-//                    System.out.printf("Word: %s | Value: %s \n", m.group(1), m.group(2));
                     addMoodValueItem(m.group(1), Integer.parseInt(m.group(2)));
                 }
             }
