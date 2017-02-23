@@ -1,7 +1,10 @@
 package Drawing;
 
 import Drawing.Controller.MainLayoutController;
+import Engine.WebsiteData;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -9,13 +12,16 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Observable;
 
 public class Main extends Application {
 
     public static final String PACKAGE = "Views/";
 
     //Constants
-    public static final String MAIN_SCREEN_FXML = "MainLayout.fxml";
+    private static final String MAIN_SCREEN_FXML = "MainLayout.fxml";
 
     public static final String GRAPHS_SCREEN_FXML = "graph.fxml";
 
@@ -28,6 +34,12 @@ public class Main extends Application {
     public static final String THREADS_OF_INTEREST = "ThreadsOfInterest.fxml";
     public static final String THREAD_LIST = "ThreadList.fxml";
 
+
+    public static ObservableList<WebsiteData> websiteDatas = FXCollections.observableArrayList();
+    public static ObservableList<WebsiteData> threadData = FXCollections.observableArrayList();
+    public HashSet<String> wordValues = new HashSet<>();
+    public HashMap<String,Integer> wordValues1 = new HashMap<>();
+    public static Integer checkingInterval = 20; //Seconds to check page again
 
     @Override
     public void start(Stage primaryStage) throws IOException {

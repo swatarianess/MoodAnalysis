@@ -9,15 +9,22 @@ import java.util.concurrent.Executor;
  *
  * @author Steve
  */
-public class Analyser implements Runnable {
+@SuppressWarnings("unused")
+class Analyser implements Runnable {
 
-    private static HashMap<String,Integer> wordMap;
+    private HashMap<String,Integer> wordMap;
     private WebsiteData websiteData;
-    private static String CurrentThread;
+    private String CurrentThread;
+    private ParsePage page;
 
-
-    Analyser(WebsiteData wd){
+    @SuppressWarnings("WeakerAccess")
+    public Analyser(WebsiteData wd){
         websiteData = wd;
+    }
+
+    public Analyser(WebsiteData wd, HashMap<String,Integer> wordMap){
+        websiteData = wd;
+        setWordMap(wordMap);
     }
 
     @Override
@@ -26,10 +33,17 @@ public class Analyser implements Runnable {
         Executor executor = Runnable::run;
 
         //CreateParse
-        ParsePage page = new ParsePage(getWebsiteData().getUrl(), CurrentThread);
-        executor.execute(page);
-        System.out.println("[CT: " + getCurrentThread() + "] -> " + calculateMoodValue(page.getRawStrings()));
+        setPage();
 
+        //Execute webPage
+        executor.execute(page);
+
+        //Calculate and Print data.
+        int currentMoodValue = calculateMoodValue(page.getRawStrings());
+
+        websiteData.getThreadsArrayList().put(getCurrentThread(),currentMoodValue);
+        websiteData.incrementMoodValue(currentMoodValue);
+        System.out.println("[CT: " + getCurrentThread() + "] -> " + currentMoodValue);
     }
 
     /**
@@ -41,12 +55,11 @@ public class Analyser implements Runnable {
         if(!getWordMap().isEmpty()) {
             try {
                 String currentWord;
-
                 for (String aWordsToCompare : wordsToCompare) {
                     currentWord = aWordsToCompare;
 
-                    if (getWordMap().get(currentWord) != null) {
-                        result += getWordMap().get(currentWord);
+                    if (wordMap.get(currentWord) != null) {
+                        result += wordMap.get(currentWord);
                     }
 
                 }
@@ -58,31 +71,39 @@ public class Analyser implements Runnable {
         return 0;
     }
 
+    private HashMap<String, Integer> getWordMap() {
+        return this.wordMap;
+    }
 
-    public int getWebsiteThreadSize(){
-        return websiteData.getThreadsArrayList().size();
+    private void setPage(){
+        this.page = new ParsePage(websiteData.getUrl(), CurrentThread);
+    }
+
+    private String getCurrentThread(){
+        return this.CurrentThread;
     }
 
     public WebsiteData getWebsiteData() {
-        return websiteData;
+        return this.websiteData;
     }
 
-    public String getCurrentThread(){
-        return CurrentThread;
+    public ParsePage getPage(){
+        return this.page;
     }
 
-    public void setCurrentThread(String thread){CurrentThread = thread;}
-
-    public static void setWordMap(HashMap<String, Integer> wordMap) {
-        Analyser.wordMap = wordMap;
+    int getWebsiteThreadSize(){
+        return this.websiteData.getThreadsArrayList().size();
     }
 
-    private static HashMap<String, Integer> getWordMap() {
-        return wordMap;
+    void setCurrentThread(String thread){CurrentThread = thread;}
+
+    void setWordMap(HashMap<String, Integer> wordMap) {
+        this.wordMap = wordMap;
     }
 
     @Override
     public String toString() {
         return "[Analyser " + getCurrentThread() + "]";
     }
+
 }

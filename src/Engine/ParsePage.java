@@ -19,20 +19,17 @@ import java.util.Collections;
 public class ParsePage implements Runnable{
 
     private ArrayList<String> rawStrings = new ArrayList<>();
-
     private String website;
     private String threadName;
 
     ParsePage(String website, String threadName){
         this.website = website;
         this.threadName = threadName;
-        System.out.println("Creating " + threadName);
     }
 
 
     @Override
     public void run() {
-        System.out.println("Running " + threadName);
         try {
             URL url = new URL(website + threadName);
 
@@ -85,7 +82,7 @@ public class ParsePage implements Runnable{
     }
 
     public ArrayList<String> getRawStrings(){
-        return rawStrings;
+        return this.rawStrings;
     }
 
 

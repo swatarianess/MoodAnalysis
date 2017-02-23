@@ -28,11 +28,11 @@ public class WebsiteData{
 
     //Getters and Setters
 
-    String getUrl() {
+    public String getUrl() {
         return url.getValue();
     }
 
-    void setUrl(String url) {
+    public void setUrl(String url) {
         this.url.setValue(url);
     }
 
@@ -40,8 +40,8 @@ public class WebsiteData{
         return this.moodValue;
     }
 
-    public void setMoodValue(int moodValue) {
-        this.moodValue.set(moodValue);
+    public void incrementMoodValue(int moodValue) {
+        this.moodValue.add(moodValue);
     }
 
     public void addThreadData(String td){
